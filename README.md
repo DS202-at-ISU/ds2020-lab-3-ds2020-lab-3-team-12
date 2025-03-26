@@ -342,6 +342,10 @@ Lucas -\> “There’s a 2-in-3 chance that a member of the Avengers
 returned from their first stint in the afterlife, but only a 50 percent
 chance they recovered from a second or third death.”
 
+Nina: I counted 89 total deaths — some unlucky Avengers7 are basically
+Meat Loaf with an E-ZPass — and on 57 occasions the individual made a
+comeback.
+
 ### Include the code
 
 Lucas -\>
@@ -388,12 +392,31 @@ second_third_return_rate
     ## 1                      18                           9                         50
     ## # ℹ abbreviated name: ¹​percent_returned_second_third
 
+``` r
+#Nina
+
+sum(deaths$Death == "yes", na.rm = TRUE)
+```
+
+    ## [1] 89
+
+``` r
+#Nina
+
+sum(returns$Return == "yes", na.rm = TRUE)
+```
+
+    ## [1] 57
+
 ### Include your answer
 
-Lucas -\> The fact-check clearly confirms that FiveThirtyEight’s
-statement is accurate: **exactly 66.7%** of Avengers returned after
-their first death, and precisely **50.0%** returned from their second or
-third deaths, matching the original claim.
+Lucas -\> The fact-check confirms that the statement is accurate:
+**exactly 66.7%** of Avengers returned after their first death, and
+precisely **50.0%** returned from their second or third deaths, matching
+the original claim.
 
-Upload your changes to the repository. Discuss and refine answers as a
-team.
+Nina: Above is my work to show fact-checking that there is a total of 89
+deaths, and 57 returns. I fact checked this by using the sum function to
+add up the number of times the option “yes” occurs in the variable
+Death. Similarly, I used the sum function to add up the number of times
+“yes” appears in the Return column.
