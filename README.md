@@ -310,15 +310,41 @@ avg_deaths
 > every seven months or so, with a permanent death occurring once every
 > 20 months.
 
+Nina: I counted 89 total deaths — some unlucky Avengers7 are basically
+Meat Loaf with an E-ZPass — and on 57 occasions the individual made a
+comeback.
+
 ### Include the code
 
 Make sure to include the code to derive the (numeric) fact for the
 statement
 
+``` r
+#Nina
+
+sum(deaths$Death == "yes", na.rm = TRUE)
+```
+
+    ## [1] 89
+
+``` r
+#Nina
+
+sum(returns$Return == "yes", na.rm = TRUE)
+```
+
+    ## [1] 57
+
 ### Include your answer
 
 Include at least one sentence discussing the result of your
 fact-checking endeavor.
+
+Nina: Above is my work to show fact-checking that there is a total of 89
+deaths, and 57 returns. I fact checked this by using the sum function to
+add up the number of times the option “yes” occurs in the variable
+Death. Similarly, I used the sum function to add up the number of times
+“yes” appears in the Return column.
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.
