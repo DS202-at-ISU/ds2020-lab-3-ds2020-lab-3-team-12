@@ -325,26 +325,50 @@ print(debug_deaths)
 
 ## On average each Avenger experiences 0.5460123 deaths.
 
-## Individually - Nina
+## Individually - Brandon Merrick
 
 ### FiveThirtyEight Statement
 
-<<<<<<< HEAD
-> Quote the statement you are planning to fact-check.
-
-Lucas -\> “There’s a 2-in-3 chance that a member of the Avengers
-returned from their first stint in the afterlife, but only a 50 percent
-chance they recovered from a second or third death.”
-
-=======
->>>>>>> 86ebdf43c907d39e8365ff57145800c411e8972f
-Nina: I counted 89 total deaths — some unlucky Avengers7 are basically
-Meat Loaf with an E-ZPass — and on 57 occasions the individual made a
-comeback.
+> Given the Avengers’ 53 years in operation and overall mortality rate,
+> fans of the comics can expect one current or former member to die
+> every seven months or so, with a permanent death occurring once every
+> 20 months.
 
 ### Include the code
 
-Lucas -\>
+``` r
+operation_time <- 53 * 12
+total_deaths <- deaths %>% summarise(num_deaths = sum(Death == "yes", na.rm = TRUE))
+avg_time_between_deaths <- operation_time / total_deaths
+permanent_deaths <- sum(returns$Return == "no")
+avg_time_between_permanent_deaths <- operation_time / permanent_deaths
+avg_time_between_deaths
+```
+
+    ##   num_deaths
+    ## 1   7.146067
+
+``` r
+avg_time_between_permanent_deaths
+```
+
+    ## [1] 19.875
+
+### Include your answer
+
+The data shows that there is a death every 7.15 months and a permanent
+death every 19.875 months. These numbers round to the whole numbers
+given in the article so although not exact the article is accurate.
+
+## Individually - Lucas
+
+### FiveThirtyEight Statement
+
+> There’s a 2-in-3 chance that a member of the Avengers returned from
+> their first stint in the afterlife, but only a 50 percent chance they
+> recovered from a second or third death.
+
+### Include the code
 
 ``` r
 av_long <- av %>%
@@ -388,6 +412,23 @@ second_third_return_rate
     ## 1                      18                           9                         50
     ## # ℹ abbreviated name: ¹​percent_returned_second_third
 
+### Include your answer
+
+The fact-check confirms that the statement is accurate: **exactly
+66.7%** of Avengers returned after their first death, and precisely
+**50.0%** returned from their second or third deaths, matching the
+original claim.
+
+## Individually - Nina
+
+### FiveThirtyEight Statement
+
+> I counted 89 total deaths — some unlucky Avengers7 are basically Meat
+> Loaf with an E-ZPass — and on 57 occasions the individual made a
+> comeback.
+
+### Include the code
+
 ``` r
 #Nina
 
@@ -406,51 +447,8 @@ sum(returns$Return == "yes", na.rm = TRUE)
 
 ### Include your answer
 
-Lucas -\> The fact-check confirms that the statement is accurate:
-**exactly 66.7%** of Avengers returned after their first death, and
-precisely **50.0%** returned from their second or third deaths, matching
-the original claim.
-
-Nina: Above is my work to show fact-checking that there is a total of 89
+Above is my work to show fact-checking that there is a total of 89
 deaths, and 57 returns. I fact checked this by using the sum function to
 add up the number of times the option “yes” occurs in the variable
 Death. Similarly, I used the sum function to add up the number of times
 “yes” appears in the Return column.
-<<<<<<< HEAD
-=======
-
-## Individually - Brandon Merrick
-
-### FiveThirtyEight Statement
-
-> Given the Avengers’ 53 years in operation and overall mortality rate,
-> fans of the comics can expect one current or former member to die
-> every seven months or so, with a permanent death occurring once every
-> 20 months.
-
-### Include the code
-
-``` r
-operation_time <- 53 * 12
-total_deaths <- deaths %>% summarise(num_deaths = sum(Death == "yes", na.rm = TRUE))
-avg_time_between_deaths <- operation_time / total_deaths
-permanent_deaths <- sum(returns$Return == "no")
-avg_time_between_permanent_deaths <- operation_time / permanent_deaths
-avg_time_between_deaths
-```
-
-    ##   num_deaths
-    ## 1   7.146067
-
-``` r
-avg_time_between_permanent_deaths
-```
-
-    ## [1] 19.875
-
-### Include your answer
-
-The data shows that there is a death every 7.15 months and a permanent
-death every 19.875 months. These numbers round to the whole numbers
-given in the article so although not exact the article is accurate.
->>>>>>> 86ebdf43c907d39e8365ff57145800c411e8972f
