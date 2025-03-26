@@ -338,13 +338,13 @@ possible.
 
 > Quote the statement you are planning to fact-check.
 
-\#Lucas -\> “There’s a 2-in-3 chance that a member of the Avengers
+Lucas -\> “There’s a 2-in-3 chance that a member of the Avengers
 returned from their first stint in the afterlife, but only a 50 percent
 chance they recovered from a second or third death.”
 
 ### Include the code
 
-\#Lucas -\>
+Lucas -\>
 
 ``` r
 av_long <- av %>%
@@ -388,13 +388,12 @@ second_third_return_rate
     ## 1                      18                           9                         50
     ## # ℹ abbreviated name: ¹​percent_returned_second_third
 
-Make sure to include the code to derive the (numeric) fact for the
-statement
-
 ### Include your answer
 
-Include at least one sentence discussing the result of your
-fact-checking endeavor.
+Lucas -\> The fact-check clearly confirms that FiveThirtyEight’s
+statement is accurate: **exactly 66.7%** of Avengers returned after
+their first death, and precisely **50.0%** returned from their second or
+third deaths, matching the original claim.
 
 Upload your changes to the repository. Discuss and refine answers as a
 team.
