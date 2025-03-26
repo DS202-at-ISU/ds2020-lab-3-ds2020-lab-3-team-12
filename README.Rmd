@@ -45,15 +45,21 @@ Based on these datasets calculate the average number of deaths an Avenger suffer
 
 ```{r}
 deaths <- av %>%
-  pivot_longer(cols = starts_with("Death"),
-               names_to = "Time",
-               values_to = "Death") %>%
-  mutate(Time = parse_number(Time),         
-         Death = tolower(Death))          
+  select(Name.Alias, starts_with("Death")) %>%
+  pivot_longer(
+    cols = starts_with("Death"),
+    names_to = "Time",
+    values_to = "Death"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Death = tolower(trimws(Death))
+  )         
 
 head(deaths)
 tail(deaths)
 str(deaths)
+deaths
 ```
 ```{r}
 returns <- av %>%
@@ -76,7 +82,14 @@ avg_deaths <- deaths %>%
   summarize(average_deaths = mean(num_deaths))
 
 avg_deaths
+```
 
+```{r}
+debug_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarize(num_deaths = sum(Death == "yes", na.rm = TRUE))
+
+print(debug_deaths)
 ```
 ## On average each Avenger experiences 0.5460123 deaths.
 
@@ -90,7 +103,38 @@ Each team member picks one of the statements in the FiveThirtyEight [analysis](h
 
 > Quote the statement you are planning to fact-check.
 
+#Lucas -> "There’s a 2-in-3 chance that a member of the Avengers returned from their first stint in the afterlife, but only a 50 percent chance they recovered from a second or third death."
+
 ### Include the code
+
+#Lucas ->
+```{r}
+av_long <- av %>%
+   pivot_longer(cols = matches("Death[1-5]|Return[1-5]"),
+                names_to = c(".value", "Time"),
+                names_pattern = "(Death|Return)([1-5])") %>%
+  mutate(across(c(Death, Return), tolower),
+         Time = as.numeric(Time))
+
+first_return_rate <- av_long %>%
+  filter(Time == 1, Death == "yes") %>%
+  summarize(
+    total_died_first = n(),
+    total_returned_first = sum(Return == "yes", na.rm = TRUE),
+    percent_returned_first = (total_returned_first  / total_died_first) * 100
+    )
+
+second_third_return_rate <- av_long %>%
+  filter(Time %in% c(2,3), Death == "yes") %>%
+  summarize(
+    total_died_second_third = n(),
+    total_returned_second_third = sum(Return == "yes", na.rm = TRUE),
+    percent_returned_second_third = (total_returned_second_third / total_died_second_third) * 100
+  )
+
+first_return_rate
+second_third_return_rate
+```
 
 Make sure to include the code to derive the (numeric) fact for the statement
 

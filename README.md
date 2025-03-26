@@ -152,70 +152,71 @@ Avenger suffers.
 
 ``` r
 deaths <- av %>%
-  pivot_longer(cols = starts_with("Death"),
-               names_to = "Time",
-               values_to = "Death") %>%
-  mutate(Time = parse_number(Time),         
-         Death = tolower(Death))          
+  select(Name.Alias, starts_with("Death")) %>%
+  pivot_longer(
+    cols = starts_with("Death"),
+    names_to = "Time",
+    values_to = "Death"
+  ) %>%
+  mutate(
+    Time = parse_number(Time),
+    Death = tolower(trimws(Death))
+  )         
 
 head(deaths)
 ```
 
-    ## # A tibble: 6 × 18
-    ##   URL                 Name.Alias Appearances Current. Gender Probationary.Introl
-    ##   <chr>               <chr>            <int> <chr>    <chr>  <chr>              
-    ## 1 http://marvel.wiki… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 2 http://marvel.wiki… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 3 http://marvel.wiki… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 4 http://marvel.wiki… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 5 http://marvel.wiki… "Henry Jo…        1269 YES      MALE   ""                 
-    ## 6 http://marvel.wiki… "Janet va…        1165 YES      FEMALE ""                 
-    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Return1 <chr>, Return2 <chr>,
-    ## #   Return3 <chr>, Return4 <chr>, Return5 <chr>, Notes <chr>, Time <dbl>,
-    ## #   Death <chr>
+    ## # A tibble: 6 × 3
+    ##   Name.Alias                     Time Death
+    ##   <chr>                         <dbl> <chr>
+    ## 1 "Henry Jonathan \"Hank\" Pym"     1 "yes"
+    ## 2 "Henry Jonathan \"Hank\" Pym"     2 ""   
+    ## 3 "Henry Jonathan \"Hank\" Pym"     3 ""   
+    ## 4 "Henry Jonathan \"Hank\" Pym"     4 ""   
+    ## 5 "Henry Jonathan \"Hank\" Pym"     5 ""   
+    ## 6 "Janet van Dyne"                  1 "yes"
 
 ``` r
 tail(deaths)
 ```
 
-    ## # A tibble: 6 × 18
-    ##   URL                 Name.Alias Appearances Current. Gender Probationary.Introl
-    ##   <chr>               <chr>            <int> <chr>    <chr>  <chr>              
-    ## 1 http://marvel.wiki… Ava Ayala           49 YES      FEMALE ""                 
-    ## 2 http://marvel.wiki… Kaluu               35 YES      MALE   ""                 
-    ## 3 http://marvel.wiki… Kaluu               35 YES      MALE   ""                 
-    ## 4 http://marvel.wiki… Kaluu               35 YES      MALE   ""                 
-    ## 5 http://marvel.wiki… Kaluu               35 YES      MALE   ""                 
-    ## 6 http://marvel.wiki… Kaluu               35 YES      MALE   ""                 
-    ## # ℹ 12 more variables: Full.Reserve.Avengers.Intro <chr>, Year <int>,
-    ## #   Years.since.joining <int>, Honorary <chr>, Return1 <chr>, Return2 <chr>,
-    ## #   Return3 <chr>, Return4 <chr>, Return5 <chr>, Notes <chr>, Time <dbl>,
-    ## #   Death <chr>
+    ## # A tibble: 6 × 3
+    ##   Name.Alias  Time Death
+    ##   <chr>      <dbl> <chr>
+    ## 1 Ava Ayala      5 ""   
+    ## 2 Kaluu          1 "no" 
+    ## 3 Kaluu          2 ""   
+    ## 4 Kaluu          3 ""   
+    ## 5 Kaluu          4 ""   
+    ## 6 Kaluu          5 ""
 
 ``` r
 str(deaths)
 ```
 
-    ## tibble [865 × 18] (S3: tbl_df/tbl/data.frame)
-    ##  $ URL                        : chr [1:865] "http://marvel.wikia.com/Henry_Pym_(Earth-616)" "http://marvel.wikia.com/Henry_Pym_(Earth-616)" "http://marvel.wikia.com/Henry_Pym_(Earth-616)" "http://marvel.wikia.com/Henry_Pym_(Earth-616)" ...
-    ##  $ Name.Alias                 : chr [1:865] "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" ...
-    ##  $ Appearances                : int [1:865] 1269 1269 1269 1269 1269 1165 1165 1165 1165 1165 ...
-    ##  $ Current.                   : chr [1:865] "YES" "YES" "YES" "YES" ...
-    ##  $ Gender                     : chr [1:865] "MALE" "MALE" "MALE" "MALE" ...
-    ##  $ Probationary.Introl        : chr [1:865] "" "" "" "" ...
-    ##  $ Full.Reserve.Avengers.Intro: chr [1:865] "Sep-63" "Sep-63" "Sep-63" "Sep-63" ...
-    ##  $ Year                       : int [1:865] 1963 1963 1963 1963 1963 1963 1963 1963 1963 1963 ...
-    ##  $ Years.since.joining        : int [1:865] 52 52 52 52 52 52 52 52 52 52 ...
-    ##  $ Honorary                   : chr [1:865] "Full" "Full" "Full" "Full" ...
-    ##  $ Return1                    : chr [1:865] "NO" "NO" "NO" "NO" ...
-    ##  $ Return2                    : chr [1:865] "" "" "" "" ...
-    ##  $ Return3                    : chr [1:865] "" "" "" "" ...
-    ##  $ Return4                    : chr [1:865] "" "" "" "" ...
-    ##  $ Return5                    : chr [1:865] "" "" "" "" ...
-    ##  $ Notes                      : chr [1:865] "Merged with Ultron in Rage of Ultron Vol. 1. A funeral was held. " "Merged with Ultron in Rage of Ultron Vol. 1. A funeral was held. " "Merged with Ultron in Rage of Ultron Vol. 1. A funeral was held. " "Merged with Ultron in Rage of Ultron Vol. 1. A funeral was held. " ...
-    ##  $ Time                       : num [1:865] 1 2 3 4 5 1 2 3 4 5 ...
-    ##  $ Death                      : chr [1:865] "yes" "" "" "" ...
+    ## tibble [865 × 3] (S3: tbl_df/tbl/data.frame)
+    ##  $ Name.Alias: chr [1:865] "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" "Henry Jonathan \"Hank\" Pym" ...
+    ##  $ Time      : num [1:865] 1 2 3 4 5 1 2 3 4 5 ...
+    ##  $ Death     : chr [1:865] "yes" "" "" "" ...
+
+``` r
+deaths
+```
+
+    ## # A tibble: 865 × 3
+    ##    Name.Alias                     Time Death
+    ##    <chr>                         <dbl> <chr>
+    ##  1 "Henry Jonathan \"Hank\" Pym"     1 "yes"
+    ##  2 "Henry Jonathan \"Hank\" Pym"     2 ""   
+    ##  3 "Henry Jonathan \"Hank\" Pym"     3 ""   
+    ##  4 "Henry Jonathan \"Hank\" Pym"     4 ""   
+    ##  5 "Henry Jonathan \"Hank\" Pym"     5 ""   
+    ##  6 "Janet van Dyne"                  1 "yes"
+    ##  7 "Janet van Dyne"                  2 ""   
+    ##  8 "Janet van Dyne"                  3 ""   
+    ##  9 "Janet van Dyne"                  4 ""   
+    ## 10 "Janet van Dyne"                  5 ""   
+    ## # ℹ 855 more rows
 
 ``` r
 returns <- av %>%
@@ -299,6 +300,29 @@ avg_deaths
     ##            <dbl>
     ## 1          0.546
 
+``` r
+debug_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarize(num_deaths = sum(Death == "yes", na.rm = TRUE))
+
+print(debug_deaths)
+```
+
+    ## # A tibble: 163 × 2
+    ##    Name.Alias              num_deaths
+    ##    <chr>                        <int>
+    ##  1 ""                               7
+    ##  2 "\"Giulietta Nefaria\""          1
+    ##  3 "Adam"                           1
+    ##  4 "Adam Brashear"                  0
+    ##  5 "Alani Ryan"                     0
+    ##  6 "Alex Summers"                   0
+    ##  7 "Alexis"                         0
+    ##  8 "Alias: Jonas"                   1
+    ##  9 "Amadeus Cho"                    0
+    ## 10 "America Chavez"                 0
+    ## # ℹ 153 more rows
+
 ## On average each Avenger experiences 0.5460123 deaths.
 
 ## Individually
@@ -314,7 +338,55 @@ possible.
 
 > Quote the statement you are planning to fact-check.
 
+\#Lucas -\> “There’s a 2-in-3 chance that a member of the Avengers
+returned from their first stint in the afterlife, but only a 50 percent
+chance they recovered from a second or third death.”
+
 ### Include the code
+
+\#Lucas -\>
+
+``` r
+av_long <- av %>%
+   pivot_longer(cols = matches("Death[1-5]|Return[1-5]"),
+                names_to = c(".value", "Time"),
+                names_pattern = "(Death|Return)([1-5])") %>%
+  mutate(across(c(Death, Return), tolower),
+         Time = as.numeric(Time))
+
+first_return_rate <- av_long %>%
+  filter(Time == 1, Death == "yes") %>%
+  summarize(
+    total_died_first = n(),
+    total_returned_first = sum(Return == "yes", na.rm = TRUE),
+    percent_returned_first = (total_returned_first  / total_died_first) * 100
+    )
+
+second_third_return_rate <- av_long %>%
+  filter(Time %in% c(2,3), Death == "yes") %>%
+  summarize(
+    total_died_second_third = n(),
+    total_returned_second_third = sum(Return == "yes", na.rm = TRUE),
+    percent_returned_second_third = (total_returned_second_third / total_died_second_third) * 100
+  )
+
+first_return_rate
+```
+
+    ## # A tibble: 1 × 3
+    ##   total_died_first total_returned_first percent_returned_first
+    ##              <int>                <int>                  <dbl>
+    ## 1               69                   46                   66.7
+
+``` r
+second_third_return_rate
+```
+
+    ## # A tibble: 1 × 3
+    ##   total_died_second_third total_returned_second_third percent_returned_second_…¹
+    ##                     <int>                       <int>                      <dbl>
+    ## 1                      18                           9                         50
+    ## # ℹ abbreviated name: ¹​percent_returned_second_third
 
 Make sure to include the code to derive the (numeric) fact for the
 statement
