@@ -301,14 +301,9 @@ avg_deaths
 
 ## On average each Avenger experiences 0.5460123 deaths.
 
-## Individually - Brandon Merrick
+## Individually - Nina
 
 ### FiveThirtyEight Statement
-
-> Given the Avengers’ 53 years in operation and overall mortality rate,
-> fans of the comics can expect one current or former member to die
-> every seven months or so, with a permanent death occurring once every
-> 20 months.
 
 Nina: I counted 89 total deaths — some unlucky Avengers7 are basically
 Meat Loaf with an E-ZPass — and on 57 occasions the individual made a
@@ -346,5 +341,37 @@ add up the number of times the option “yes” occurs in the variable
 Death. Similarly, I used the sum function to add up the number of times
 “yes” appears in the Return column.
 
-Upload your changes to the repository. Discuss and refine answers as a
-team.
+## Individually - Brandon Merrick
+
+### FiveThirtyEight Statement
+
+> Given the Avengers’ 53 years in operation and overall mortality rate,
+> fans of the comics can expect one current or former member to die
+> every seven months or so, with a permanent death occurring once every
+> 20 months.
+
+### Include the code
+
+``` r
+operation_time <- 53 * 12
+total_deaths <- deaths %>% summarise(num_deaths = sum(Death == "yes", na.rm = TRUE))
+avg_time_between_deaths <- operation_time / total_deaths
+permanent_deaths <- sum(returns$Return == "no")
+avg_time_between_permanent_deaths <- operation_time / permanent_deaths
+avg_time_between_deaths
+```
+
+    ##   num_deaths
+    ## 1   7.146067
+
+``` r
+avg_time_between_permanent_deaths
+```
+
+    ## [1] 19.875
+
+### Include your answer
+
+The data shows that there is a death every 7.15 months and a permanent
+death every 19.875 months. These numbers round to the whole numbers
+given in the article so although not exact the article is accurate.
