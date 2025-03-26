@@ -80,15 +80,11 @@ avg_deaths
 ```
 ## On average each Avenger experiences 0.5460123 deaths.
 
-## Individually
-
-For each team member, copy this part of the report. 
-
-Each team member picks one of the statements in the FiveThirtyEight [analysis](https://fivethirtyeight.com/features/avengers-death-comics-age-of-ultron/) and fact checks it based on the data. Use dplyr functionality whenever possible.
+## Individually - Brandon Merrick
 
 ### FiveThirtyEight Statement
 
-> Quote the statement you are planning to fact-check.
+> Given the Avengers’ 53 years in operation and overall mortality rate, fans of the comics can expect one current or former member to die every seven months or so, with a permanent death occurring once every 20 months.
 
 ### Include the code
 
