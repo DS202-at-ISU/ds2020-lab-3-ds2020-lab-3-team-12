@@ -68,6 +68,18 @@ tail(returns)
 str(returns)
 ```
 
+```{r}
+avg_deaths <- deaths %>%
+  group_by(Name.Alias) %>%
+  summarize(num_deaths = sum(Death =="yes", na.rm = TRUE)) %>%
+  ungroup() %>%
+  summarize(average_deaths = mean(num_deaths))
+
+avg_deaths
+
+```
+## On average each Avenger experiences 0.5460123 deaths.
+
 ## Individually
 
 For each team member, copy this part of the report. 
