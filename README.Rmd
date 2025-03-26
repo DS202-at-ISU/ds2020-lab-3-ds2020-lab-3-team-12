@@ -7,6 +7,9 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyr)
+library(dplyr)
+library(readr)
 ```
 
 # Lab report #3 - instructions
@@ -29,11 +32,28 @@ av <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/av
 head(av)
 ```
 
+```{r}
+str(av)
+summary(av)
+```
+
 Get the data into a format where the five columns for Death[1-5] are replaced by two columns: Time, and Death. Time should be a number between 1 and 5 (look into the function `parse_number`); Death is a categorical variables with values "yes", "no" and "". Call the resulting data set `deaths`. 
 
 Similarly, deal with the returns of characters.
 
-Based on these datasets calculate the average number of deaths an Avenger suffers. 
+Based on these datasets calculate the average number of deaths an Avenger suffers.
+
+```{r}
+deaths <- av %>%
+  pivot_longer(cols = starts_with("Death"),
+               names_to = "Time",
+               values_to = "Death") %>%
+  mutate(Time = parse_number(Time),         
+         Death = tolower(Death))          
+
+head(deaths)
+tail(deaths)
+```
 
 ## Individually
 
