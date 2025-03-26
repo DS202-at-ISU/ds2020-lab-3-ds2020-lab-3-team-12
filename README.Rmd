@@ -53,6 +53,19 @@ deaths <- av %>%
 
 head(deaths)
 tail(deaths)
+str(deaths)
+```
+```{r}
+returns <- av %>%
+  pivot_longer(cols = starts_with("Return"),
+               names_to = "Time",
+               values_to = "Return") %>%
+  mutate(Time = parse_number(Time),
+         Return = tolower(Return))
+
+head(returns)
+tail(returns)
+str(returns)
 ```
 
 ## Individually
